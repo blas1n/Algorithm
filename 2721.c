@@ -4,10 +4,10 @@ int GetT(int n);
 int GetW(int k);
 
 int main() {
-	int tastCount, n;
-	scanf("%d", &tastCount);
+	int t, n;
+	scanf("%d", &t);
 
-	while (tastCount--) {
+	while (t--) {
 		scanf("%d", &n);
 
 		printf("%d\n", GetW(n));
