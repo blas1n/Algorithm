@@ -1,28 +1,51 @@
-#include <iostream>
 #include <string>
 #include <vector>
-#include <algorithm>
+#include <queue>
 
 using namespace std;
 
-long long cache[81] = { 0, 4, 6, };
+int bridge_weight;
 
-long long fib(int n) {
-	if (cache[n])
-		return cache[n];
+queue<int> wait_truck;
+queue<int> cross_truck;
 
-	cache[n] = fib(n - 1) + fib(n - 2);
-	return cache[n];
+int* delays;
+int first, last;
+
+void enter() {
+	bridge_weight -= wait_truck.front();
+	cross_truck.push(wait_truck.front());
+	wait_truck.pop();
+	last++;
 }
 
-long long solution(int N) {
-	vector<int> a;
-	initializer_list
-	initializer_list<int>(a);
-	return solution(N);
+void exit() {
+	bridge_weight += cross_truck.front();
+	cross_truck.pop();
+	first++;
 }
 
-int main() {
-	cout << solution(5) << endl;
-	return 0;
+int solution(int bridge_length, int weight, vector<int> truck_weights) {
+	bridge_weight = weight;
+	delays = new int[truck_weights.size()];
+	fill(delays, delays + truck_weights.size(), bridge_length);
+
+	for (const auto weight : truck_weights)
+		wait_truck.push(weight);
+
+	int answer = 0;
+
+	while (!wait_truck.empty() || !cross_truck.empty()) {
+		for (int i = first; i < last; i++)
+			if (--delays[i] == 0) exit();
+		answer++;
+
+		if (wait_truck.front() > bridge_weight)
+			continue;
+
+		if (!wait_truck.empty())
+			enter();
+	}
+
+	return answer;
 }

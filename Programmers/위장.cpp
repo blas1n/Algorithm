@@ -1,28 +1,28 @@
-#include <iostream>
 #include <string>
 #include <vector>
-#include <algorithm>
+#include <map>
 
 using namespace std;
 
-long long cache[81] = { 0, 4, 6, };
+map<string, int> clothMap;
 
-long long fib(int n) {
-	if (cache[n])
-		return cache[n];
+void initMap(const vector<vector<string>>& clothes) {
+	for (const auto& cloth : clothes) {
+		if (clothMap.find(cloth[1]) != clothMap.end())
+			clothMap[cloth[1]]++;
 
-	cache[n] = fib(n - 1) + fib(n - 2);
-	return cache[n];
+		else
+			clothMap.insert(make_pair(cloth[1], 1));
+	}
 }
 
-long long solution(int N) {
-	vector<int> a;
-	initializer_list
-	initializer_list<int>(a);
-	return solution(N);
-}
+int solution(vector<vector<string>> clothes) {
+	initMap(clothes);
 
-int main() {
-	cout << solution(5) << endl;
-	return 0;
+	int ans = 1;
+
+	for (const auto& cloth : clothMap)
+		ans *= (cloth.second + 1);
+
+	return ans - 1;
 }
