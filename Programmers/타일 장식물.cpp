@@ -21,8 +21,3 @@ long long solution(int N) {
 	initializer_list<int>(a);
 	return solution(N);
 }
-
-int main() {
-	cout << solution(5) << endl;
-	return 0;
-}
