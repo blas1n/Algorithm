@@ -5,14 +5,15 @@ class Solution:
         while read < len(chars):
             c = chars[read]
             cnt = 0
-
             while read < len(chars) and c == chars[read]:
                 read += 1
                 cnt += 1
 
+            chars[write] = c
+            write += 1
             if cnt > 1:
-                str_cnt = list(str(cnt))
-                chars[write + 1:read] = str_cnt
-                read = write + len(str_cnt) + 1
-            write = read
+                for digit in str(cnt):
+                    chars[write] = digit
+                    write += 1
+
         return write
