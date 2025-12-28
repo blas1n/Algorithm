@@ -10,11 +10,7 @@ class Solution:
             return
         if root.val == val:
             return root
-
-        leftNode = self.searchBST(root.left, val)
-        if leftNode:
-            return leftNode
-        rightNode = self.searchBST(root.right, val)
-        if rightNode:
-            return rightNode
-        return None
+        elif root.val > val:
+            return self.searchBST(root.left, val)
+        else:
+            return self.searchBST(root.right, val)
