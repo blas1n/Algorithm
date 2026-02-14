@@ -1,0 +1,7 @@
+WITH RECURSIVE CTE AS
+(
+    SELECT 1 AS n
+    UNION ALL
+    SELECT 1 + n FROM CTE WHERE n < 20 
+)
+SELECT repeat('* ', n) FROM CTE;
